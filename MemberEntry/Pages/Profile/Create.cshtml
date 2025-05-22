@@ -1,0 +1,148 @@
+﻿@page
+@model MemberEntry.Pages.Profile.CreateModel
+@{
+    ViewData["Title"] = "Create Member";
+}
+
+
+
+<div class="card-header">
+    <h2 class="mb-0">Create Member</h2>
+</div>
+<form method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger mb-4"></div>
+
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.IdentityNo"></label>
+            <input asp-for="Member.IdentityNo" class="form-control" />
+            <span asp-validation-for="Member.IdentityNo" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.NameInEnglish"></label>
+            <input asp-for="Member.NameInEnglish" class="form-control" />
+            <span asp-validation-for="Member.NameInEnglish" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.NameInBangla"></label>
+            <input asp-for="Member.NameInBangla" class="form-control" />
+            <span asp-validation-for="Member.NameInBangla" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.Father"></label>
+            <input asp-for="Member.Father" class="form-control" />
+            <span asp-validation-for="Member.Father" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.Mother"></label>
+            <input asp-for="Member.Mother" class="form-control" />
+            <span asp-validation-for="Member.Mother" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.PoliticalView"></label>
+            <input asp-for="Member.PoliticalView" class="form-control" />
+            <span asp-validation-for="Member.PoliticalView" class="text-danger"></span>
+        </div>
+
+
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.DOB"></label>
+            <input asp-for="Member.DOB" class="form-control" type="date" />
+            <span asp-validation-for="Member.DOB" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.PassportNumber"></label>
+            <input asp-for="Member.PassportNumber" class="form-control" />
+            <span asp-validation-for="Member.PassportNumber" class="text-danger"></span>
+        </div>
+
+
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.Organization"></label>
+            <input asp-for="Member.Organization" class="form-control" />
+            <span asp-validation-for="Member.Organization" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.Designation"></label>
+            <input asp-for="Member.Designation" class="form-control" />
+            <span asp-validation-for="Member.Designation" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.GenderName"></label>
+            <input asp-for="Member.GenderName" class="form-control" />
+            <span asp-validation-for="Member.GenderName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.ReligionName"></label>
+            <input asp-for="Member.ReligionName" class="form-control" />
+            <span asp-validation-for="Member.ReligionName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.NationalityName"></label>
+            <input asp-for="Member.NationalityName" class="form-control" />
+            <span asp-validation-for="Member.NationalityName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.MaritalStatusName"></label>
+            <input asp-for="Member.MaritalStatusName" class="form-control" />
+            <span asp-validation-for="Member.MaritalStatusName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.CitizenName"></label>
+            <input asp-for="Member.CitizenName" class="form-control" />
+            <span asp-validation-for="Member.CitizenName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.ProfessionName"></label>
+            <input asp-for="Member.ProfessionName" class="form-control" />
+            <span asp-validation-for="Member.ProfessionName" class="text-danger"></span>
+        </div>
+
+
+
+
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.NIDNumber"></label>
+            <input asp-for="Member.NIDNumber" class="form-control" />
+            <span asp-validation-for="Member.NIDNumber" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 form-group form-check mt-4">
+            <input asp-for="Member.IsActive" class="form-check-input" />
+            <label asp-for="Member.IsActive" class="form-check-label"></label>
+            <span asp-validation-for="Member.IsActive" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.Address"></label>
+            <textarea asp-for="Member.Address" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Member.Address" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 form-group">
+            <label asp-for="ImageFile"></label>
+            <input type="file" asp-for="ImageFile" class="form-control" accept="image/*" />
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
+
+        </div>
+
+    </div>
+   
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

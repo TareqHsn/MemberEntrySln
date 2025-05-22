@@ -1,0 +1,70 @@
+﻿@page
+@model MemberEntry.Pages.Profile.DetailsModel
+@{
+    ViewData["Title"] = "Member Details";
+}
+
+
+<!-- Page Wrapper -->
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Left Profile Image & Summary -->
+        <div class="col-md-3 text-center p-4 rounded ">
+            @if (!string.IsNullOrEmpty(Model.Member.ImagePath))
+            {
+                <img src="@Model.Member.ImagePath" class="rounded-circle img-thumbnail mb-3" style="width: 150px; height: 150px;" alt="Profile Image" />
+            }
+            else
+            {
+                <img src="/images/default-user.png" class="rounded-circle img-thumbnail mb-3" style="width: 150px; height: 150px;" alt="No Image" />
+            }
+
+            <h4 class="font-weight-bold">@Model.Member.NameInEnglish</h4>
+            <p class="text-muted">Identity No: @Model.Member.IdentityNo</p>
+            <p class="text-muted">Designation: @Model.Member.Designation"</p>
+        </div>
+
+        <!-- Right Details Panel -->
+        <div class="col-md-9">
+            <div class="card shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                    <h5 class="mb-0">Member Details</h5>
+               
+                        <a asp-page="./Edit" asp-route-id="@Model.Member.MemberId" class="btn btn-sm btn-light">Edit</a>
+                    
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-md-6"><strong>Name in Bangla:</strong> @Model.Member.NameInBangla</div>
+                        <div class="col-md-6"><strong>Father:</strong> @Model.Member.Father</div>
+                        <div class="col-md-6"><strong>Mother:</strong> @Model.Member.Mother</div>
+                        <div class="col-md-6"><strong>Political View:</strong> @Model.Member.PoliticalView</div>
+                        <div class="col-md-6"><strong>Under Surveillance:</strong> @(Model.Member.IsActive ? "Yes" : "No")</div>
+                        <div class="col-md-6"><strong>Date of Birth:</strong> @Model.Member.DOBSt</div>
+                        <div class="col-md-6"><strong>Gender:</strong> @Model.Member.GenderName</div>
+                        <div class="col-md-6"><strong>Religion:</strong> @Model.Member.ReligionName</div>
+                        <div class="col-md-6"><strong>Nationality:</strong> @Model.Member.NationalityName</div>
+                        <div class="col-md-6"><strong>Marital Status:</strong> @Model.Member.MaritalStatusName</div>
+                        <div class="col-md-6"><strong>Citizen:</strong> @Model.Member.CitizenName</div>
+                        <div class="col-md-6"><strong>Profession:</strong> @Model.Member.ProfessionName</div>
+                        <div class="col-md-6"><strong>Passport Number:</strong> @Model.Member.PassportNumber</div>
+                        <div class="col-md-6"><strong>NID Number:</strong> @Model.Member.NIDNumber</div>
+                        <div class="col-md-12"><strong>Address:</strong> @Model.Member.Address</div>
+                        <div class="col-md-6"><strong>Created By:</strong> @Model.Member.CreatedBy</div>
+                        <div class="col-md-6"><strong>Created Date:</strong> @Model.Member.CreatedDate?.ToString("g")</div>
+                        <div class="col-md-6"><strong>Last Modified By:</strong> @Model.Member.LastModifiedBy</div>
+                        <div class="col-md-6"><strong>Last Modified Date:</strong> @Model.Member.LastModifiedDate?.ToString("g")</div>
+                        <div class="col-md-6"><strong>Organization:</strong> @Model.Member.Organization</div>
+                        <div class="col-md-6"><strong>Designation:</strong> @Model.Member.Designation</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back Button -->
+            <div class="mt-3 text-right">
+                <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,85 @@
+﻿@page
+@model MemberEntry.Pages.Profile.IndexModel
+@{
+    ViewData["Title"] = "Members";
+}
+
+
+<h1>Members</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<!-- PDF Report Generation Form -->
+<form method="post" asp-page-handler="GeneratePdf" target="_blank" class="row g-3 mb-3">
+    <div class="col-md-4">
+        <label asp-for="FromDate" class="form-label">From Date</label>
+        <input type="date" asp-for="FromDate" class="form-control" required />
+        <span asp-validation-for="FromDate" class="text-danger"></span>
+    </div>
+    <div class="col-md-4">
+        <label asp-for="ToDate" class="form-label">To Date</label>
+        <input type="date" asp-for="ToDate" class="form-control" required />
+        <span asp-validation-for="ToDate" class="text-danger"></span>
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-success">Generate PDF</button>
+    </div>
+</form>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger mt-3" role="alert">
+        @TempData["Error"]
+    </div>
+}
+
+<table class="table">
+    <thead class="table-light">
+        <tr>
+            <th>Identity No</th>
+            <th>Name in English</th>
+            <th>Name in Bangla</th>
+            <th>Date of Birth</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Members)
+        {
+            <tr>
+                <td>@item.IdentityNo</td>
+                <td>@item.NameInEnglish</td>
+                <td>@item.NameInBangla</td>
+                <td>@item.DOBSt</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.ImagePath))
+                    {
+                        <img src="@item.ImagePath" alt="Member Image" class="img-fluid" style="max-width: 50px;" />
+                    }
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.MemberId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.MemberId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.MemberId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        // Client-side validation for date range
+        document.querySelector('form[method="post"]').addEventListener('submit', function (e) {
+            const fromDate = new Date(document.querySelector('input[name="FromDate"]').value);
+            const toDate = new Date(document.querySelector('input[name="ToDate"]').value);
+            if (fromDate > toDate) {
+                e.preventDefault();
+                alert('To date must be on or after From date.');
+            }
+        });
+    </script>
+}
