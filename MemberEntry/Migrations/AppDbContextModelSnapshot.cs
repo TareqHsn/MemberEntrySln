@@ -97,7 +97,7 @@ namespace MemberEntry.Migrations
                         {
                             Id = "e1ae1f42-75b2-4604-97ec-10f844b1962f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1ef6ec95-3600-464b-80ce-83cb3c0ce689",
+                            ConcurrencyStamp = "05c300b9-34fe-4ab7-96d3-b0ba61e4f8a7",
                             Email = "tareq@yahoo.com",
                             EmailConfirmed = true,
                             FirstName = "Tareq",
@@ -105,10 +105,10 @@ namespace MemberEntry.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TAREQ@YAHOO.COM",
                             NormalizedUserName = "TAREQ@YAHOO.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELWc6xdMOECDP/sWwUSO19tNN4LcV7vmkUzUUUgzn7M3b6JnQ9G3OTCSLITFbe3vfg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAm7KOfYnFsyvg+5tr8yrkbzZSsSgdiqtVHruUpJrQnBpc5k1Pj42k4cCzZK8b4PjQ==",
                             PhoneNumber = "01861268168",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "19efdb2f-f89a-4f57-9cfa-d2c1c8821ec0",
+                            SecurityStamp = "07aeea77-1a9b-42a1-a76a-ec0cdb165071",
                             TwoFactorEnabled = false,
                             UserName = "tareq@yahoo.com"
                         });

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemberEntry.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250523053917_DDlttt")]
-    partial class DDlttt
+    [Migration("20250523070521_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,7 +100,7 @@ namespace MemberEntry.Migrations
                         {
                             Id = "e1ae1f42-75b2-4604-97ec-10f844b1962f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1a14e531-5e5b-485b-838a-187e0ffdf549",
+                            ConcurrencyStamp = "05c300b9-34fe-4ab7-96d3-b0ba61e4f8a7",
                             Email = "tareq@yahoo.com",
                             EmailConfirmed = true,
                             FirstName = "Tareq",
@@ -108,10 +108,10 @@ namespace MemberEntry.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TAREQ@YAHOO.COM",
                             NormalizedUserName = "TAREQ@YAHOO.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIkDAZ84jQGxJ82/aHPiziIQnRtUndhZOyUdaIaB7C002yoxuvuDgrKJlG1YcGnVSQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAm7KOfYnFsyvg+5tr8yrkbzZSsSgdiqtVHruUpJrQnBpc5k1Pj42k4cCzZK8b4PjQ==",
                             PhoneNumber = "01861268168",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "7d073f2f-f9d8-463e-b6f7-7ba0da95167c",
+                            SecurityStamp = "07aeea77-1a9b-42a1-a76a-ec0cdb165071",
                             TwoFactorEnabled = false,
                             UserName = "tareq@yahoo.com"
                         });
@@ -394,7 +394,7 @@ namespace MemberEntry.Migrations
             modelBuilder.Entity("MemberEntry.Models.MemberBasicInfoModel", b =>
                 {
                     b.HasOne("MemberEntry.Models.PassportType", "PassportType")
-                        .WithMany()
+                        .WithMany("Members")
                         .HasForeignKey("PassportTypeId");
 
                     b.Navigation("PassportType");
@@ -449,6 +449,11 @@ namespace MemberEntry.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MemberEntry.Models.PassportType", b =>
+                {
+                    b.Navigation("Members");
                 });
 #pragma warning restore 612, 618
         }
