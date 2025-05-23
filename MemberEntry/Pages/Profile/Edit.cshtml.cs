@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MemberEntry.Models;
+using MemberEntry.Repositories;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MemberEntry.Pages.Profile
 {
@@ -10,23 +12,36 @@ namespace MemberEntry.Pages.Profile
     {
         private readonly IMemberRepository _memberRepository;
         private readonly IWebHostEnvironment _environment;
+        private readonly IPassprtTypeRepository _passprtTypeRepository;
 
-        public EditModel(IMemberRepository memberRepository, IWebHostEnvironment environment)
+        public EditModel(IMemberRepository memberRepository, IWebHostEnvironment environment, IPassprtTypeRepository passprtTypeRepository)
         {
             _memberRepository = memberRepository;
             _environment = environment;
+            _passprtTypeRepository = passprtTypeRepository;
+           
         }
 
         [BindProperty]
         public MemberBasicInfoModel Member { get; set; }
+        public SelectList PassportTypeSelectList { get; set; }
 
         [BindProperty]
         [Display(Name = "Upload New Image")]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
+        private async Task PopulatePageElements()
+        {
+            List<PassportType> passportTypeModels = new();
 
+            passportTypeModels = (List<PassportType>)await _passprtTypeRepository.GetAllAsync();
+
+            PassportTypeSelectList = new SelectList(passportTypeModels, nameof(PassportType.Id), nameof(PassportType.Name));
+
+        }
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Member = await _memberRepository.GetByIdAsync(id);
+            await PopulatePageElements();
             if (Member == null)
             {
                 return NotFound();
@@ -41,10 +56,8 @@ namespace MemberEntry.Pages.Profile
                 return Page();
             }
 
-            // Handle image upload
             if (ImageFile != null && ImageFile.Length > 0)
             {
-                // Validate file type and size
                 var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
                 var extension = Path.GetExtension(ImageFile.FileName).ToLowerInvariant();
                 if (!allowedExtensions.Contains(extension))
@@ -53,14 +66,12 @@ namespace MemberEntry.Pages.Profile
                     return Page();
                 }
 
-                // Limit file size to 5MB (adjust as needed)
                 if (ImageFile.Length > 5 * 1024 * 1024)
                 {
                     ModelState.AddModelError("ImageFile", "Image file size must be less than 5MB.");
                     return Page();
                 }
 
-                // Delete old image if it exists
                 if (!string.IsNullOrEmpty(Member.ImagePath))
                 {
                     var oldImagePath = Path.Combine(_environment.WebRootPath, Member.ImagePath.TrimStart('/'));
@@ -70,14 +81,12 @@ namespace MemberEntry.Pages.Profile
                     }
                 }
 
-                // Define uploads folder
-                var uploadsFolder = Path.Combine(_environment.WebRootPath, "Uploads");
+                var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads");
                 if (!Directory.Exists(uploadsFolder))
                 {
                     Directory.CreateDirectory(uploadsFolder);
                 }
 
-                // Save new image
                 var uniqueFileName = Guid.NewGuid().ToString() + extension;
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
@@ -86,12 +95,12 @@ namespace MemberEntry.Pages.Profile
                     await ImageFile.CopyToAsync(stream);
                 }
 
-                Member.ImagePath = "/Uploads/" + uniqueFileName;
+                Member.ImagePath = "/uploads/" + uniqueFileName;
             }
 
-            // Update audit fields (optional)
             Member.LastModifiedDate = DateTime.Now;
-            // Member.LastModifiedBy = User.Identity.Name ?? "System"; // Uncomment if authentication is enabled
+
+
 
             await _memberRepository.UpdateAsync(Member);
             return RedirectToPage("./Index");

@@ -4,6 +4,7 @@ using MemberEntry.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemberEntry.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250522152637_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,27 +94,6 @@ namespace MemberEntry.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "e1ae1f42-75b2-4604-97ec-10f844b1962f",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "1ef6ec95-3600-464b-80ce-83cb3c0ce689",
-                            Email = "tareq@yahoo.com",
-                            EmailConfirmed = true,
-                            FirstName = "Tareq",
-                            LastName = "Hossian",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "TAREQ@YAHOO.COM",
-                            NormalizedUserName = "TAREQ@YAHOO.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELWc6xdMOECDP/sWwUSO19tNN4LcV7vmkUzUUUgzn7M3b6JnQ9G3OTCSLITFbe3vfg==",
-                            PhoneNumber = "01861268168",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "19efdb2f-f89a-4f57-9cfa-d2c1c8821ec0",
-                            TwoFactorEnabled = false,
-                            UserName = "tareq@yahoo.com"
-                        });
                 });
 
             modelBuilder.Entity("MemberEntry.Models.MemberBasicInfoModel", b =>
@@ -194,9 +176,6 @@ namespace MemberEntry.Migrations
                     b.Property<string>("PassportNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PassportTypeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PoliticalView")
                         .HasColumnType("nvarchar(max)");
 
@@ -208,27 +187,7 @@ namespace MemberEntry.Migrations
 
                     b.HasKey("MemberId");
 
-                    b.HasIndex("PassportTypeId");
-
                     b.ToTable("Members");
-                });
-
-            modelBuilder.Entity("MemberEntry.Models.PassportType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PassportTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -256,14 +215,6 @@ namespace MemberEntry.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            Name = "SystemAdmin",
-                            NormalizedName = "SYSTEMADMIN"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -314,15 +265,6 @@ namespace MemberEntry.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ClaimType = "FirstName",
-                            ClaimValue = "Tareq",
-                            UserId = "e1ae1f42-75b2-4604-97ec-10f844b1962f"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -360,13 +302,6 @@ namespace MemberEntry.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "e1ae1f42-75b2-4604-97ec-10f844b1962f",
-                            RoleId = "1"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -386,15 +321,6 @@ namespace MemberEntry.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("MemberEntry.Models.MemberBasicInfoModel", b =>
-                {
-                    b.HasOne("MemberEntry.Models.PassportType", "PassportType")
-                        .WithMany("Members")
-                        .HasForeignKey("PassportTypeId");
-
-                    b.Navigation("PassportType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -446,11 +372,6 @@ namespace MemberEntry.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MemberEntry.Models.PassportType", b =>
-                {
-                    b.Navigation("Members");
                 });
 #pragma warning restore 612, 618
         }

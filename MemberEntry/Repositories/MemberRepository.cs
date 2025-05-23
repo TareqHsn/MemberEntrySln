@@ -18,7 +18,8 @@ namespace MemberEntry.Repositories
             public async Task<IEnumerable<MemberBasicInfoModel>> GetAllAsync()
             {
                 return await _context.Members
-                    .OrderBy(m => m.NameInEnglish)
+                    .Include(m => m.PassportType)
+                    .OrderByDescending(m => m.MemberId)
                     .ToListAsync();
             }
 
@@ -27,21 +28,9 @@ namespace MemberEntry.Repositories
                 return await _context.Members
                     .Where(m => m.MemberId == id)
                     .FirstOrDefaultAsync();
-            }
+            }           
 
-            public async Task<IEnumerable<MemberBasicInfoModel>> SearchAsync(string searchTerm)
-            {
-                if (string.IsNullOrWhiteSpace(searchTerm))
-                    return await GetAllAsync();
-
-                searchTerm = searchTerm.ToLower();
-                return await _context.Members
-                    .Where(m => m.NameInEnglish.ToLower().Contains(searchTerm) ||
-                               m.NameInBangla.ToLower().Contains(searchTerm) ||
-                               m.IdentityNo.ToLower().Contains(searchTerm))
-                    .OrderBy(m => m.NameInEnglish)
-                    .ToListAsync();
-            }
+            
 
             public async Task AddAsync(MemberBasicInfoModel member)
             {
@@ -49,20 +38,32 @@ namespace MemberEntry.Repositories
                 await _context.SaveChangesAsync();
             }
 
-            public async Task UpdateAsync(MemberBasicInfoModel member)
+        
+        public async Task UpdateAsync(MemberBasicInfoModel member)
+        {
+            var existingMember = await _context.Members
+                .Where(m => m.MemberId == member.MemberId)
+                .FirstOrDefaultAsync();
+            member.LastModifiedDate = DateTime.Now;
+            if (existingMember != null)
             {
-                var existingMember = await _context.Members
-                    .Where(m => m.MemberId == member.MemberId)
-                    .FirstOrDefaultAsync();
+                var originalCreateDate = existingMember.CreatedDate;
+                var originalImagePath = existingMember.ImagePath;
 
-                if (existingMember != null)
+                _context.Entry(existingMember).CurrentValues.SetValues(member);
+
+                existingMember.CreatedDate = originalCreateDate;
+                if (string.IsNullOrEmpty(member.ImagePath))
                 {
-                    _context.Entry(existingMember).CurrentValues.SetValues(member);
-                    await _context.SaveChangesAsync();
+                    existingMember.ImagePath = originalImagePath;
                 }
-            }
 
-            public async Task DeleteAsync(int id)
+                await _context.SaveChangesAsync();
+            }
+        }
+
+
+        public async Task DeleteAsync(int id)
             {
                 var member = await _context.Members
                     .Where(m => m.MemberId == id)

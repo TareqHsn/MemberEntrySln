@@ -22,7 +22,8 @@ namespace MemberEntry.Models
         [DisplayName("Name in English")]
         public string? NameInEnglish { get; set; }
 
-
+        public int? PassportTypeId { get; set; }
+        public PassportType? PassportType { get; set; }
 
         [Required(ErrorMessage = "Please enter a 'Name in Bangla'.")]
         [MinLength(3, ErrorMessage = "Minimum length of 'Name in Bangla' is 3 characters.")]
@@ -49,10 +50,11 @@ namespace MemberEntry.Models
         [DisplayName("Is Active")]
         public bool IsActive { get; set; }
 
+       
         [DisplayName("Date of Birth")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DOB { get; set; }
+
         public string? ImagePath { get; set; }
         public string? CreatedByName { get; set; }
         public string? Organization { get; set; }

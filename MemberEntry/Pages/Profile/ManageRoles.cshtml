@@ -3,9 +3,15 @@
 @{
 }
 <h2>Manage Roles</h2>
-<table class="table">
-    <thead>
+<div class="text-end"><a asp-page="/Profile/CreateRole" class="btn btn-success">+ Add New</a></div>
+<br />
+<table class="table table-responsive">
+    <thead class="table-light">
         <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th>Role Name</th>
         </tr>
     </thead>
@@ -13,9 +19,12 @@
         @foreach (var role in Model.Roles)
         {
             <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td>@role.Name</td>
             </tr>
         }
     </tbody>
 </table>
-<a asp-page="/Profile/CreateRole" class="btn btn-primary">Create New Role</a>

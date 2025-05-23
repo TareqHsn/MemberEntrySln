@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MemberEntry</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MemberEntry.styles.css" asp-append-version="true" />
+   
     <style>
         .sidebar {
             height: 100vh;
@@ -52,27 +51,58 @@
         {
             <nav class="sidebar">
                 <div class="container-fluid">
-                    <a class="navbar-brand" asp-area="" asp-page="/Index">MemberEntry</a>
                     <ul class="nav flex-column">
+
+                        <!-- Entry Menu -->
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Profile/Index">Profile</a>
+                            <a class="nav-link" data-bs-toggle="collapse" href="#entryMenu" role="button" aria-expanded="false" aria-controls="entryMenu">
+                                Entry
+                            </a>
+                            <div class="collapse" id="entryMenu">
+                                <ul class="nav flex-column ms-3">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-page="/Profile/Index">Profile</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="collapse" id="entryMenu">
+                                <ul class="nav flex-column ms-3">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-page="/Passport/List">Passport Type</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
-                       
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-page="/Profile/ManageUsers">Manage Users</a>
-                            </li>
-                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-page="/Profile/ManageRoles">Manage Roles</a>
-                             </li>
-                        
+
+                        <!-- System Menu -->
                         <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#systemMenu" role="button" aria-expanded="false" aria-controls="systemMenu">
+                                System
+                            </a>
+                            <div class="collapse" id="systemMenu">
+                                <ul class="nav flex-column ms-3">
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-page="/Profile/ManageUsers">Manage Users</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-area="" asp-page="/Profile/ManageRoles">Manage Roles</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Logout -->
+                        <li class="nav-item mt-3">
                             <form asp-area="Identity" asp-page="/Account/Logout" method="post">
                                 <button type="submit" class="nav-link btn btn-link">Logout</button>
                             </form>
                         </li>
+
                     </ul>
                 </div>
             </nav>
+
+
         }
 
         <!-- Main Content -->

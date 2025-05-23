@@ -4,6 +4,7 @@ using MemberEntry.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MemberEntry.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250523043743_DDl")]
+    partial class DDl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,7 +100,7 @@ namespace MemberEntry.Migrations
                         {
                             Id = "e1ae1f42-75b2-4604-97ec-10f844b1962f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1ef6ec95-3600-464b-80ce-83cb3c0ce689",
+                            ConcurrencyStamp = "4bbbf32e-f259-4659-9823-876805e73a07",
                             Email = "tareq@yahoo.com",
                             EmailConfirmed = true,
                             FirstName = "Tareq",
@@ -105,10 +108,10 @@ namespace MemberEntry.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TAREQ@YAHOO.COM",
                             NormalizedUserName = "TAREQ@YAHOO.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELWc6xdMOECDP/sWwUSO19tNN4LcV7vmkUzUUUgzn7M3b6JnQ9G3OTCSLITFbe3vfg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECVtSi354i1yPZEDCwCLc25l4RMgDhMWyJamMC9uURTP8F3vPOai18ky2WN/djMxEg==",
                             PhoneNumber = "01861268168",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "19efdb2f-f89a-4f57-9cfa-d2c1c8821ec0",
+                            SecurityStamp = "2b6ae9f1-99e1-421c-bfa9-010373900fe3",
                             TwoFactorEnabled = false,
                             UserName = "tareq@yahoo.com"
                         });
@@ -207,8 +210,6 @@ namespace MemberEntry.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MemberId");
-
-                    b.HasIndex("PassportTypeId");
 
                     b.ToTable("Members");
                 });
@@ -388,15 +389,6 @@ namespace MemberEntry.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MemberEntry.Models.MemberBasicInfoModel", b =>
-                {
-                    b.HasOne("MemberEntry.Models.PassportType", "PassportType")
-                        .WithMany("Members")
-                        .HasForeignKey("PassportTypeId");
-
-                    b.Navigation("PassportType");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -446,11 +438,6 @@ namespace MemberEntry.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MemberEntry.Models.PassportType", b =>
-                {
-                    b.Navigation("Members");
                 });
 #pragma warning restore 612, 618
         }

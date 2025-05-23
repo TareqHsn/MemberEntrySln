@@ -4,14 +4,11 @@
     ViewData["Title"] = "Members";
 }
 
-
-<h1>Members</h1>
+<h1>Member List</h1>
 
 <p>
-    <a asp-page="Create" class="btn btn-primary">Create New</a>
 </p>
 
-<!-- PDF Report Generation Form -->
 <form method="post" asp-page-handler="GeneratePdf" target="_blank" class="row g-3 mb-3">
     <div class="col-md-4">
         <label asp-for="FromDate" class="form-label">From Date</label>
@@ -25,7 +22,9 @@
     </div>
     <div class="col-md-4 d-flex align-items-end">
         <button type="submit" class="btn btn-success">Generate PDF</button>
+        <a asp-page="Create" class="btn btn-primary ms-2">Add New</a>
     </div>
+
 </form>
 
 @if (TempData["Error"] != null)
@@ -43,6 +42,7 @@
             <th>Name in Bangla</th>
             <th>Date of Birth</th>
             <th>Image</th>
+            <th>Passport Type</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -60,10 +60,15 @@
                         <img src="@item.ImagePath" alt="Member Image" class="img-fluid" style="max-width: 50px;" />
                     }
                 </td>
+                <td>@(string.IsNullOrEmpty(item?.PassportType?.Name) ? "N/A" : item.PassportType.Name)</td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.MemberId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.MemberId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.MemberId">Delete</a>
+                    <a class="btn btn-warning btn-sm" asp-page="./Edit" asp-route-id="@item.MemberId">
+                        <i class="bi bi-pencil-square"></i>Edit
+                    </a> 
+                    <a class="btn btn-info btn-sm" asp-page="./Details" asp-route-id="@item.MemberId">
+                        <i class="bi bi-info-circle"></i> Details
+                    </a>    
+                   
                 </td>
             </tr>
         }
@@ -72,7 +77,6 @@
 
 @section Scripts {
     <script>
-        // Client-side validation for date range
         document.querySelector('form[method="post"]').addEventListener('submit', function (e) {
             const fromDate = new Date(document.querySelector('input[name="FromDate"]').value);
             const toDate = new Date(document.querySelector('input[name="ToDate"]').value);

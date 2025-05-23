@@ -4,20 +4,27 @@
 }
 
 <h2>Manage Users</h2>
-<table class="table">
-    <thead>
+<div class="text-end">
+    <a asp-page="/Profile/CreateUser" class="btn btn-success">+ New User</a>
+</div>
+<br />
+<table class="table table-responsive">
+    <thead class="table-light">
         <tr>
+            <th>#</th>
             <th>Email</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Roles</th>
             <th>Permissions</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var user in Model.Users)
         {
             <tr>
+                <td></td>
                 <td>@user.Email</td>
                 <td>@user.FirstName</td>
                 <td>@user.LastName</td>
@@ -30,4 +37,3 @@
         }
     </tbody>
 </table>
-<a asp-page="/Profile/CreateUser" class="btn btn-primary">Create New User</a>

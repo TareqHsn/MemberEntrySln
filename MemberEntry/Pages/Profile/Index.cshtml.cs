@@ -39,14 +39,14 @@ namespace MemberEntry.Pages.Profile
                 if (Members == null)
                 {
                     TempData["Error"] = "Failed to load members: Repository returned null.";
-                    Members = new List<MemberBasicInfoModel>(); // Initialize to avoid null reference in view
+                    Members = new List<MemberBasicInfoModel>(); 
                 }
             }
            
             catch (Exception ex)
             {
                 TempData["Error"] = $"Error loading members: {ex.Message}";
-                Members = new List<MemberBasicInfoModel>(); // Initialize to avoid null reference in view
+                Members = new List<MemberBasicInfoModel>();
             }
         }
 
@@ -213,7 +213,7 @@ namespace MemberEntry.Pages.Profile
                                         });
                                         table.Cell().Border(0.5f).Padding(2).Text(m.IdentityNo ?? "");
                                         table.Cell().Border(0.5f).Padding(2).Text(m.NameInEnglish ?? "");
-                                        table.Cell().Border(0.5f).Padding(2).Text(m.DOBSt ?? "");
+                                        table.Cell().Border(0.5f).Padding(2).Text(m.DOBSt);
                                         table.Cell().Border(0.5f).Padding(2).Text(m.Father ?? "");
                                         table.Cell().Border(0.5f).Padding(2).Text(m.Mother ?? "");
                                         table.Cell().Border(0.5f).Padding(2).Text(m.CitizenName ?? "");

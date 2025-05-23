@@ -5,10 +5,9 @@
 }
 
 
-<!-- Page Wrapper -->
 <div class="container-fluid mt-4">
     <div class="row">
-        <!-- Left Profile Image & Summary -->
+        <!-- Image -->
         <div class="col-md-3 text-center p-4 rounded ">
             @if (!string.IsNullOrEmpty(Model.Member.ImagePath))
             {
@@ -24,7 +23,7 @@
             <p class="text-muted">Designation: @Model.Member.Designation"</p>
         </div>
 
-        <!-- Right Details Panel -->
+        <!-- Right -->
         <div class="col-md-9">
             <div class="card shadow-sm">
                 <div class="card-header d-flex justify-content-between align-items-center bg-light">
@@ -39,7 +38,7 @@
                         <div class="col-md-6"><strong>Father:</strong> @Model.Member.Father</div>
                         <div class="col-md-6"><strong>Mother:</strong> @Model.Member.Mother</div>
                         <div class="col-md-6"><strong>Political View:</strong> @Model.Member.PoliticalView</div>
-                        <div class="col-md-6"><strong>Under Surveillance:</strong> @(Model.Member.IsActive ? "Yes" : "No")</div>
+                        <div class="col-md-6"><strong>IsActive:</strong> @(Model.Member.IsActive ? "Yes" : "No")</div>
                         <div class="col-md-6"><strong>Date of Birth:</strong> @Model.Member.DOBSt</div>
                         <div class="col-md-6"><strong>Gender:</strong> @Model.Member.GenderName</div>
                         <div class="col-md-6"><strong>Religion:</strong> @Model.Member.ReligionName</div>
@@ -59,8 +58,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Back Button -->
             <div class="mt-3 text-right">
                 <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
             </div>

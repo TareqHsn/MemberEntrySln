@@ -1,4 +1,5 @@
 using MemberEntry.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MemberEntry.Pages.Profile
 {
+    [Authorize]
     public class CreateUserModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;

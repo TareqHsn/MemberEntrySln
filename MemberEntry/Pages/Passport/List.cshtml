@@ -1,0 +1,36 @@
+﻿@page
+@model MemberEntry.Pages.Passport.ListModel
+@{
+}
+
+<div class="text-end"> <a asp-page="Add" class="btn btn-success ms-2">Add New</a></div>
+<br />
+<table class="table">
+    <thead class="table-light">
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PassportTypes)
+        {
+            <tr>
+                <td></td>
+                <td></td>
+                <td>@item.Name</td>
+                <td></td>
+                <td>
+                   
+                </td>
+                <td>
+                   #
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

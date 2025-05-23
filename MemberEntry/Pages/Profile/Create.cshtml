@@ -107,7 +107,13 @@
             <span asp-validation-for="Member.ProfessionName" class="text-danger"></span>
         </div>
 
-
+        <div class="col-md-4 form-group">
+            <label asp-for="Member.PassportTypeId" class="control-label"></label>:
+            <select asp-for="Member.PassportTypeId" class="form-control" asp-items="@Model.PassportTypeSelectList">
+                <option value="0">Select Passport Type</option>
+            </select>
+            <span asp-validation-for="Member.PassportTypeId" class="small text-danger"></span>
+        </div>  
 
 
         <div class="col-md-4 form-group">
@@ -129,6 +135,7 @@
             <label asp-for="ImageFile"></label>
             <input type="file" asp-for="ImageFile" class="form-control" accept="image/*" />
             <span asp-validation-for="ImageFile" class="text-danger"></span>
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
 
         </div>
 
@@ -143,6 +150,3 @@
 
 
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
